@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap');
+
+:root {
+  /* Premium Dark Palette */
+  --color-bg: #0f172a;
+  /* Deep Navy */
+  --color-bg-light: #1e293b;
+  /* Lighter Navy */
+  --color-primary: #e2e8f0;
+  /* Soft White/Grey */
+  --color-accent: #f59e0b;
+  /* Gold/Amber */
+  --color-text: #f8fafc;
+  /* White text */
+  --color-text-muted: #94a3b8;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* Animation */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Outfit', sans-serif;
+  color: var(--color-text);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grid Layout */
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Mobile: 2 cols */
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .value-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* Tablet: 3 cols */
+  }
+}
+
+@media (min-width: 1024px) {
+  .value-grid {
+    grid-template-columns: repeat(5, 1fr);
+    /* Desktop: 5 cols */
+  }
+}
+
+/* Card Content Fixes */
+.value-card {
+  /* Height handled by parent grid stretch, but ensure content aligns */
+  height: 100%;
+  display: flex !important;
+  /* Force flex to center content */
+  align-items: center;
+  justify-content: center;
+}
