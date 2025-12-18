@@ -15,7 +15,7 @@
 - **Core**: React + Vite
 - **Styling**: Standard CSS (CSS Variables + Flexbox/Grid)
 - **Animation**: Framer Motion
-- **Deployment**: GitHub Pages (Static Hosting)
+- **Deployment**: Zeabur (Static Hosting)
 
 ## 給定的 40 個抽象詞彙
 1. 獲得成就
