@@ -1,7 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Reorder } from 'framer-motion';
 
 const ResultView = ({ selectedValues, onRestart }) => {
+    const [items, setItems] = React.useState(selectedValues);
+
+    React.useEffect(() => {
+        setItems(selectedValues);
+    }, [selectedValues]);
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -55,10 +61,16 @@ const ResultView = ({ selectedValues, onRestart }) => {
                     My Core Values
                 </p>
 
-                <div style={{ display: 'grid', gap: '1rem' }}>
-                    {selectedValues.map((value, index) => (
-                        <motion.div
+                <Reorder.Group
+                    axis="y"
+                    values={items}
+                    onReorder={setItems}
+                    style={{ display: 'grid', gap: '1rem', listStyle: 'none', padding: 0 }}
+                >
+                    {items.map((value, index) => (
+                        <Reorder.Item
                             key={value.id}
+                            value={value}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 + 0.5 }}
@@ -72,8 +84,11 @@ const ResultView = ({ selectedValues, onRestart }) => {
                                 color: '#fff',
                                 textAlign: 'left',
                                 display: 'flex',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                cursor: 'grab',
+                                userSelect: 'none'
                             }}
+                            whileDrag={{ scale: 1.05, cursor: 'grabbing', zIndex: 10 }}
                         >
                             <span style={{
                                 opacity: 0.5,
@@ -83,10 +98,17 @@ const ResultView = ({ selectedValues, onRestart }) => {
                             }}>
                                 0{index + 1}
                             </span>
-                            {value.name}
-                        </motion.div>
+                            <div style={{ flex: 1 }}>
+                                {value.name}
+                            </div>
+                            <div style={{ opacity: 0.3 }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 6H16M8 12H16M8 18H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </div>
+                        </Reorder.Item>
                     ))}
-                </div>
+                </Reorder.Group>
 
                 <div style={{
                     marginTop: '3rem',
@@ -100,7 +122,7 @@ const ResultView = ({ selectedValues, onRestart }) => {
             </div>
 
             <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', fontSize: '0.9rem' }}>
-                您可以截圖保存這張卡片
+                您可以拖曳調整排序，並截圖保存這張卡片
             </p>
 
             <button
@@ -110,7 +132,10 @@ const ResultView = ({ selectedValues, onRestart }) => {
                     textDecoration: 'underline',
                     fontSize: '0.9rem',
                     opacity: 0.7,
-                    transition: 'opacity 0.2s'
+                    transition: 'opacity 0.2s',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => e.target.style.opacity = 1}
                 onMouseLeave={(e) => e.target.style.opacity = 0.7}
